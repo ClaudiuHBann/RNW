@@ -1,5 +1,6 @@
 #include "pch.h"
 
+// link the native module
 #include "SpeechRecognition.hpp"
 
 #include "ReactPackageProvider.h"
