@@ -15,7 +15,7 @@ This is a speech recognition example using react native windows framework and na
 ## Try it yourself
 Create the project yourself with [this](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/react-native-for-windows)
 OR
-just "npm install" in the RNW directory
+just run the "npm install" command in the RNW directory
 
 ## Watch out
 1. When you create your react native project make sure you don't have any spaces in the absolute path to the project
