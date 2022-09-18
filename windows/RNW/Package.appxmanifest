@@ -8,7 +8,7 @@
 
   <Identity
     Name="aefb5046-f1ee-46cd-912e-7934c1147c58"
-    Publisher="CN=Claudiu"
+    Publisher="CN=Claudiu HBann"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="aefb5046-f1ee-46cd-912e-7934c1147c58" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
