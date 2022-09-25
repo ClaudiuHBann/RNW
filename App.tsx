@@ -19,7 +19,7 @@ const App: () => Node = () => {
     // set a default text if you said nothing
     if (text == '') {
       text = 'Listening...';
-      setTextMe('Nothing...');
+      //setTextMe('Nothing...');
     }
 
     // update UI and listen again
@@ -29,16 +29,29 @@ const App: () => Node = () => {
 
   // run this function once (it's a loop)
   useEffect(() => {
+    // e.g.: say anything bcz it doesnt matter
     SpeechRecognition.CommandAdd('do something', 0, () => {
-      setTextMe('fuck you');
+        setTextMe('NaNi !?');
     });
-
-    SpeechRecognition.CommandAdd('swipe left', 3, () => {
-      setTextMe('I swiped left.');
+    
+    // e.g.: say "what the hell is flying up there"
+    SpeechRecognition.CommandAdd('what is up', 1, () => {
+        setTextMe('Detected command of level 1.');
     });
-
-    SpeechRecognition.CommandAdd('call 911', 4, () => {
-      setTextMe('No thank you!');
+    
+    // e.g.: say "freak get out"
+    SpeechRecognition.CommandAdd('get out freak', 2, () => {
+        setTextMe('Detected command of level 2.');
+    });
+    
+    // e.g.: say "damn what is this garbage"
+    SpeechRecognition.CommandAdd('what is this', 3, () => {
+        setTextMe('Detected command of level 3.');
+    });
+    
+    // e.g.: say "say something"
+    SpeechRecognition.CommandAdd('say something', 4, () => {
+      setTextMe('Detected command of level 4.');
     });
 
     SpeechRecognition.Initialize(() => {
