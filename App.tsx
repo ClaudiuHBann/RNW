@@ -14,6 +14,29 @@ const App: () => Node = () => {
   const [textYou, setTextYou] = useState('Listening...');
   const [textMe, setTextMe] = useState('Nothing...');
 
+  // small callback for the function for the shit workaround
+  var createCommandCallback = (text, detectionLevel) => {
+    setTextMe('Command: ' + text + ', DetectionLevel: ' + detectionLevel);
+
+    // reset the callback
+    SpeechRecognition.CommandChange(
+      text,
+      detectionLevel,
+      text,
+      detectionLevel,
+      () => {
+        createCommandCallback(text, detectionLevel);
+      },
+    );
+  };
+
+  // small function for the shit workaround
+  var createCommand = (text, detectionLevel) => {
+    SpeechRecognition.CommandAdd(text, detectionLevel, () => {
+      createCommandCallback(text, detectionLevel);
+    });
+  };
+
   // the callback function to be called when a speech recognition completed
   var callback = text => {
     // set a default text if you said nothing
@@ -29,30 +52,23 @@ const App: () => Node = () => {
 
   // run this function once (it's a loop)
   useEffect(() => {
+    SpeechRecognition.CommandClear();
+
     // e.g.: say anything bcz it doesnt matter
-    SpeechRecognition.CommandAdd('do something', 0, () => {
-        setTextMe('NaNi !?');
-    });
-    
+    createCommand('do something', 0);
+    SpeechRecognition.CommandRemove('do something', 0);
+
     // e.g.: say "what the hell is flying up there"
-    SpeechRecognition.CommandAdd('what is up', 1, () => {
-        setTextMe('Detected command of level 1.');
-    });
-    
+    createCommand('what is up', 1);
+
     // e.g.: say "freak get out"
-    SpeechRecognition.CommandAdd('get out freak', 2, () => {
-        setTextMe('Detected command of level 2.');
-    });
-    
+    createCommand('get out freak', 2);
+
     // e.g.: say "damn what is this garbage"
-    SpeechRecognition.CommandAdd('what is this', 3, () => {
-        setTextMe('Detected command of level 3.');
-    });
-    
+    createCommand('what is this', 3);
+
     // e.g.: say "say something"
-    SpeechRecognition.CommandAdd('say something', 4, () => {
-      setTextMe('Detected command of level 4.');
-    });
+    createCommand('say something', 4);
 
     SpeechRecognition.Initialize(() => {
       SpeechRecognition.Start(callback);
@@ -82,7 +98,7 @@ const App: () => Node = () => {
           marginBottom: '2%',
           marginTop: '5%',
         }}>
-        I said:
+        Last Command:
       </Text>
       <Text style={{flexWrap: 'wrap', fontSize: 18, textAlign: 'center'}}>
         {textMe}
